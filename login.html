@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<head>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="./custom.css">
+    <meta charset="utf-8"/>
+    <script type="text/javascript" src="https://code.angularjs.org/1.4.8/angular.min.js"></script>
+    <script type="text/javascript" src="./custom.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+</head>
+<body id="LoginForm" ng-app="myApp">
+<div ng-controller="giveOutput">
+    <div ng-if="!highchart.show" class="container">
+        <div class="login-form">
+        <div class="main-div">
+            <div class="panel">
+                <h2>Admin Login</h2>
+                <p>Please enter your email and password</p>
+            </div>
+            <form id="Login" ng-submit="submit()">
+                <div class="form-group">
+                    <input type="email" class="form-control" id="inputEmail"
+                           ng-model="user.email" placeholder="Email Address" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" id="inputPassword"
+                           ng-model="user.password" placeholder="Password" required>
+                </div>
+                <!--<div class="forgot">
+                    <a href="/">Forgot password?</a>
+                </div>-->
+                <button type="submit" class="btn btn-primary">Login</button>
+            </form>
+        </div>'
+    </div>
+    </div>
+    <div ng-if="highchart.show" class="charts">
+        <span data-ng-repeat="month in months">
+            <a ng-click="checkmonth(month)" class="btn btn-primary">{{month}}</a>
+        </span>
+         <h2>{{user.email}}</h2><a href="" data-ng-click="highchart.show=false;">Logout</a>
+        <div ng-if="highchart.change">
+            <hc-chart options="chartOptions">Placeholder for generic chart</hc-chart>
+        </div>
+    </div>
+</div>
+</body>
+</html>
