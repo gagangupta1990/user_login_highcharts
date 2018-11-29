@@ -6,8 +6,16 @@ myApp.controller('giveOutput', ['$scope', '$timeout', function ($scope, $timeout
     $scope.highchart.change=true;
     $scope.user = {};
     $scope.submit = function () {
-        alert('Successfilly Login');
-       $scope.highchart.show = true;
+        var url = 'http://localhost:3000/api/v1/users/login';
+        $http({
+            url: url,
+            method: "POST",
+            data: { 'email' : $scope.user.email ,'password': $scope.user.password},
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).then(function(response) {
+            alert('Successfilly Login');
+            $scope.highchart.show = true;
+        })
     }
     $scope.months=['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     $scope.orders=[29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4]
