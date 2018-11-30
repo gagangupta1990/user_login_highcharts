@@ -5,3 +5,5 @@
 2.Use node version 8 or above
 
 3.Do npm install after project load
+
+4.Must have mongodb database
