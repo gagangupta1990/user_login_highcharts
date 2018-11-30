@@ -37,7 +37,7 @@
         <span data-ng-repeat="month in months">
             <a ng-click="checkmonth(month)" class="btn btn-primary">{{month}}</a>
         </span>
-         <h2>{{user.email}}</h2><a href="" data-ng-click="highchart.show=false;">Logout</a>
+         <h2>{{user.email}}</h2><a href="" data-ng-click="logout()">Logout</a>
         <div ng-if="highchart.change">
             <hc-chart options="chartOptions">Placeholder for generic chart</hc-chart>
         </div>

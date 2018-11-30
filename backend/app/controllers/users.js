@@ -7,10 +7,10 @@ class UserCtrl {
 
       // checkimg email and password
       // TODO: use database to check email and password
-      if (body.email == "gagan.gupta@gmail.com" && body.password == "gagan") {
+      if (body.email == "gagan.gupta@wns.com" && body.password == "wns") {
         req.session.user = {
           is_logged_in: true,
-          email: "gagan.gupta@hippoinnovations.com"
+          email: "gagan.gupta@wns.com"
         };
         return resolve({ statusCode: 200, payload: { message: "login successfull"}});
       } else {
@@ -25,7 +25,7 @@ class UserCtrl {
       req.session.user = {
         is_logged_in: false
       };
-      return resolve({ statusCode:200, payload: { message: "Logout successfull" }});
+      return resolve({ statusCode:200, payload: { message: "Logout successful" }});
     })
   }
 

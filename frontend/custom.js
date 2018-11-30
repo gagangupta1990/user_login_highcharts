@@ -1,6 +1,20 @@
 var myApp = angular.module('myApp', []);
 
-myApp.controller('giveOutput', ['$scope', '$timeout', function ($scope, $timeout) {
+myApp.controller('giveOutput', ['$scope', '$timeout','$http', function ($scope, $timeout, $http) {
+
+    var url = 'http://localhost:3000/api/v1/users/isLoggedIn';
+    $http({
+        url: url,
+        method: "GET",
+        headers: {'Content-Type': 'application/json'}
+    }).then(function(response) {
+        $scope.isLoggedIn = true;
+        $scope.highchart.show = true;
+    }).catch(err => {
+        $scope.isLoggedIn = false;
+        $scope.highchart.show = false;
+    });
+
     $scope.highchart = {};
     //$scope.highchart.show = true;
     $scope.highchart.change=true;
@@ -11,14 +25,56 @@ myApp.controller('giveOutput', ['$scope', '$timeout', function ($scope, $timeout
             url: url,
             method: "POST",
             data: { 'email' : $scope.user.email ,'password': $scope.user.password},
-            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            headers: {'Content-Type': 'application/json'}
         }).then(function(response) {
-            alert('Successfilly Login');
+            alert('Successfully Login');
+            $scope.isLoggedIn = true;
             $scope.highchart.show = true;
+        }).catch(err => {
+            alert('Invalid Credentials');
+        })
+    }
+    $scope.logout = function () {
+        var url = 'http://localhost:3000/api/v1/users/logout';
+        $http({
+            url: url,
+            method: "PUT",
+            headers: {'Content-Type': 'application/json'}
+        }).then(function(response) {
+            alert('Logged out successfully');
+            $scope.isLoggedIn = false;
+            $scope.highchart.show = false;
+        }).catch(err => {
+            alert('Something went wrong');
         })
     }
     $scope.months=['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     $scope.orders=[29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4]
+
+    var topTenPRoducts = function(){
+        $http({
+            url: 'http://localhost:3000/api/v1/chart/top_ten_products',
+            method: "GET",
+            headers: {'Content-Type': 'application/json'}
+        }).then(function(response) {
+            console.log(response);
+        }).catch(err => {
+            alert('Something went wrong');
+        });
+    }
+
+    var monthlyRevenue = function(){
+        $http({
+            url: 'http://localhost:3000/api/v1/chart/monthly_revenue',
+            method: "GET",
+            headers: {'Content-Type': 'application/json'}
+        }).then(function(response) {
+            console.log(response);
+        }).catch(err => {
+            alert('Something went wrong');
+        });
+    }
+
     $scope.chartOptions = {
         title: {
             text: 'Yearly Order Chart'

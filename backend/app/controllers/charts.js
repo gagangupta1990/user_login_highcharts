@@ -1,6 +1,6 @@
 class chartCtrl {
 
-  top_ten_products(req) {
+  async top_ten_products(req) {
     return new Promise((resolve, reject)=> {
       req.db.collection('orders').aggregate({$match: {status: {$ne: 'cancelled'}}}, {$unwind: "$items"}, {
             $group: {
@@ -16,7 +16,7 @@ class chartCtrl {
     });
   }
 
-  monthly_revenue(req) {
+  async monthly_revenue(req) {
     return new Promise((resolve, reject)=> {
       req.db.collection('orders').aggregate({'$match': {
                             $and: [
